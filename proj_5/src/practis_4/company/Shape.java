@@ -1,4 +1,4 @@
-package com.company;
+package practis_4.company;
 
 public abstract class Shape {
     protected String color;

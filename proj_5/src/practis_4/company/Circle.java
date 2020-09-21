@@ -1,4 +1,4 @@
-package com.company;
+package practis_4.company;
 
 public class Circle extends Shape{
     protected double radius;

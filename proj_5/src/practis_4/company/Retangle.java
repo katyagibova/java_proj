@@ -1,4 +1,4 @@
-package com.company;
+package practis_4.company;
 
 public class Retangle extends Shape{
     protected double width;
