@@ -1,6 +1,8 @@
 package com.company;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,8 +15,20 @@ public class Main {
         }
         String line = scanner.nextLine();
 
-        Methods methods = new Methods(N, principle, line);
-        methods.First(N);
-        methods.Second(N);
+        String str ="";
+        for (int i = 0; i < principle.length; i++) {
+            str+=principle[i].split(" ")[0];
+            if (i != principle.length - 1)
+                str+="|";
+        }
+        HashMap<String, String> replaceMap = new HashMap<>();
+        for (String s : principle) {
+            replaceMap.put(s.split(" ")[0], s.split(" ")[1]);
+        }
+
+        Pattern pattern = Pattern.compile(str);
+        Matcher matcher = pattern.matcher(line);
+        System.out.println(matcher.replaceAll(mchr -> replaceMap.get(mchr.group())));
+
     }
 }
