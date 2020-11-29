@@ -13,13 +13,12 @@ import java.util.List;
 
 import java.io.*;
 
-public class File  implements ItemsStore{
+public class InFile implements ItemsStore{
     Gson gson = new Gson();
-    private File file = new File("D:\\Repositories\\java_proj\\Java_project\\src\\main\\java\\proj_21_22\\data.json");
+    private File file = new File("src\\main\\java\\proj_21_22\\data.json");
 
-    final String path = "src\\main\\java\\proj_21_22\\data.json";
-    public File(String s) {
-    }
+
+
 
 
     @Override
@@ -83,7 +82,7 @@ public class File  implements ItemsStore{
         List<Item> items = getAll();
         items.removeIf(i -> i.getId() == id);
         sort(items);
-        FileWriter write = new FileWriter(path);
+        FileWriter write = new FileWriter(file);
         write.write("[\n");
         for (Item i:items) {
             write.write(gson.toJson(i));

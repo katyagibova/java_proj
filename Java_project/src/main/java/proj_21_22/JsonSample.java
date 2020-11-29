@@ -1,5 +1,4 @@
 package proj_21_22;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +18,7 @@ public class JsonSample {
         int method = sc.nextInt();
 
         if (method == 1) {
-            item = new File("D:/Repositories/java_proj/Java_project/src/main/java/proj_21_22/data.json");
+            item = new InFile();
         } else if (method == 2) {
             item = new Server();
         }
@@ -94,6 +93,6 @@ public class JsonSample {
             System.out.println("\nChoose further function: 1-get all, 2- get, 3- add item, 4- edit item, 5- delete item");
             function = sc.nextInt();
         }
-        System.out.println("It's all");
+        System.out.println("The end");
     }
 }
