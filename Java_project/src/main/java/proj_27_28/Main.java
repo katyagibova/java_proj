@@ -5,13 +5,16 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -27,11 +30,17 @@ public class Main {
         List<Task> tasks = gson.fromJson(httpResponse.body(), taskType);
 
         Class<Methods> methodsClass = Methods.class;
-        Class<Data> dataClass = Data.class;
         Methods methods = new Methods();
-        for(Task task: tasks)
-        {
-            methodsClass.getDeclaredMethod(task.getType(),dataClass).invoke(methods,task.getData());
+        Class<Data> dataClass = Data.class;
+        List<Method> method = Arrays.stream(methodsClass.getDeclaredMethods())
+                .filter(m -> Arrays.stream(m.getAnnotations()).anyMatch(a -> a instanceof AnnotationA))
+                .collect(Collectors.toList());
+        for(Task task: tasks) {
+            for (Method m : method) {
+                if (m.getName().equals(task.getType())) {
+                    m.invoke(methods, task.getData());
+                }
+            }
         }
     }
 }
